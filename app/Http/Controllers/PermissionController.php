@@ -22,7 +22,6 @@ class PermissionController extends Controller
         $request->validate([
             'name' => 'required|unique:users,name'
         ]);
-
         $permission = new Permission();
         $permission->name = $request->name;
         $permission->save();
@@ -33,7 +32,6 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permissionid = Permission::find($id);
-
         return view('permission.edit',compact('permissionid'));
     }
 
@@ -42,7 +40,6 @@ class PermissionController extends Controller
         $permission = Permission::find($request->permission_id);
         $permission->name = $request->name;
         $permission->save();
-
         return redirect()->route('permissions.index')->with('message', 'Update Permission Successfully');
     }
 

@@ -12,11 +12,9 @@ class LoginController extends Controller
     {
         return view('login');
     }
-
     public function login(LoginRequest $request)
     {
         $credentials = $request->getCredentials();
-
         if(Auth::attempt($credentials))
         {
             return redirect()->route('users.dashboard');
@@ -25,6 +23,5 @@ class LoginController extends Controller
         {
             return redirect()->route('login.show')->with('messages','Email And Password Are Incorrect');
         }
-
     }
 }
