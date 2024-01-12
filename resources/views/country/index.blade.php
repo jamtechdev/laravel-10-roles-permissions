@@ -1,9 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Country</h1>
         <nav>
@@ -12,8 +9,7 @@
             <li class="breadcrumb-item active">Country-List</li>
           </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,7 +21,6 @@
                     @endif
                 </div>
                 <div class="card">
-                    
                     <div class="card-header">
                         <h1 class="card-title">Country List</h1>
                         <div class="card-div">
@@ -38,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>
@@ -46,7 +41,6 @@
                                 @if (in_array("country.edit", $permissionNames) || in_array("country.destroy", $permissionNames))
                                  <th scope="col">Action</th>
                                 @endif
-                              
                               </tr>
                             </thead>
                             @foreach($countries as $key => $country)
@@ -75,4 +69,10 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+  </script>
 @endsection('content')

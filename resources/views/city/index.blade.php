@@ -1,9 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>City</h1>
         <nav>
@@ -12,8 +9,7 @@
             <li class="breadcrumb-item active">City-List</li>
           </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,7 +21,6 @@
                     @endif
                 </div>
                 <div class="card">
-                    
                     <div class="card-header">
                         <h1 class="card-title">City List</h1>
                         <div class="card-div">
@@ -38,19 +33,16 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col"> country Name</th>
                                 <th scope="col">state Name</th>
                                 <th scope="col">City Name</th>
-
-
                                 @if (in_array("city.edit", $permissionNames) || in_array("city.destroy", $permissionNames))
                                  <th scope="col">Action</th>
                                 @endif
-                              
                               </tr>
                             </thead>
                             @foreach($cities as $key => $city)
@@ -60,8 +52,6 @@
                                         <td>{{ $city->country->name }}</td>
                                         <td>{{ $city->state->name }}</td>
                                         <td>{{ $city->name }}</td>
-
-
                                         @php
                                             $permissionNames = Auth::user()->getPermissionsViaRoles()->pluck('name')->toArray();
                                         @endphp
@@ -83,4 +73,10 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+  </script>
 @endsection('content')

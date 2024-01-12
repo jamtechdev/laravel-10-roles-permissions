@@ -24,9 +24,9 @@ class StateController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'country_name' => 'required',
+            'country_id' => 'required',
         ]);
-        $country = Country::find ($request->Country_id);        
+        $country = Country::find ($request->country_id);        
         $state = new State();
         $state->name = $request->name;
         $country->state()->save($state);
@@ -45,7 +45,11 @@ class StateController extends Controller
 
     public function update(Request $request)
     {
-        $country = Country::find ($request->Country_id); 
+        $request->validate([
+            'name' => 'required',
+            'country_id' => 'required',
+        ]);
+        $country = Country::find ($request->country_id); 
         $update = State::find($request->state_id);
         $update->name = $request->name;
         $country->state()->save($update);

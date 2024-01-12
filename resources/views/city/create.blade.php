@@ -1,6 +1,5 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>City</h1>
@@ -11,7 +10,6 @@
           </ol>
         </nav>
       </div><!-- End Page Title -->
-
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -22,7 +20,6 @@
                     <div class="card-body">
                         <form action="{{route('city.store')}}" method="POST">
                             @csrf
-
                             <div class="form-group mb-4">
                                 <label >Select Country</label>
                                 <select  class="form-control" name="country_id" id="country_id">
@@ -35,16 +32,14 @@
                                     <span class="text-danger">{{ $errors->first('country_id') }}</span>
                                 @endif
                             </div>
-
                             <div class="form-group mb-4">
                                 <label >Select state</label>
                                 <select id="state_id" name="state_id" class="form-control">
                                 </select>
-                                @if ($errors->has('state_name'))
-                                <span class="text-danger">{{ $errors->first('state_name') }}</span>
+                                @if ($errors->has('state_id'))
+                                <span class="text-danger">{{ $errors->first('state_id') }}</span>
                             @endif
                             </div>
-
                             <div class="form-group mb-4">
                                 <label for="exampleInputname" class="form-label">City Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
@@ -67,10 +62,8 @@
         {
             let country = $(this).val();
             $("#state_id").html('');
-            let locationdata = {
-                country_id : country,
-            }
-                $.ajaxSetup({
+            let locationdata = { country_id : country}
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }

@@ -1,8 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Role</h1>
       <nav>
@@ -11,8 +9,7 @@
           <li class="breadcrumb-item active">Role-List</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -36,15 +33,16 @@
               </div>
             </div>
             <div class="card-body">
-              <table class="table">
-                <tr>
-                   <th>No</th>
-                   <th>Name</th>
-                   
-                   @if (in_array("roles.show", $permissionNames)|| in_array("roles.edit", $permissionNames)||in_array("roles.destroy", $permissionNames))
-                      <th>Action</th>
-                   @endif
-                </tr>
+              <table class="table" id="myTable">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    @if (in_array("roles.show", $permissionNames)|| in_array("roles.edit", $permissionNames)||in_array("roles.destroy", $permissionNames))
+                        <th>Action</th>
+                    @endif
+                  </tr>
+                </thead>
                   @foreach ($roles as $key => $role)
                   <tr>
                       <td>{{ $key + 1 }}</td>
@@ -71,7 +69,13 @@
         </div>
       </div>
     </div>
-  </main><!-- End #main -->
+  </main>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+  </script>
 @endsection('content');  
 
 

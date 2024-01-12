@@ -1,6 +1,5 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>State</h1>
@@ -10,8 +9,7 @@
             <li class="breadcrumb-item active">Add-State</li>
           </ol>
         </nav>
-      </div><!-- End Page Title -->
-
+      </div>
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -22,20 +20,18 @@
                     <div class="card-body">
                         <form action="{{route('state.store')}}" method="POST">
                             @csrf
-
                             <div class="form-group">
                                 <label >Select Country</label>
-                                <select  class="form-control" name="Country_id" id="Country_id">
+                                <select  class="form-control" name="country_id" id="country_id">
                                     <option value="">Select Category</option>
                                     @foreach ($countries as $country )
-                                    <option value="{{$country->id}}">{{$country->name}}</option>
+                                    <option value="{{$country->id}}" {{ old('country_id') == $country->id ? 'selected' : '' }}>{{$country->name}}</option>
                                     @endforeach
                                 </select>
-                                @if ($errors->has('country_name'))
-                                <span class="text-danger">{{ $errors->first('country_name') }}</span>
+                                @if ($errors->has('country_id'))
+                                <span class="text-danger">{{ $errors->first('country_id') }}</span>
                             @endif
                             </div>
-
                             <div class="mb-3">
                                 <label for="exampleInputname" class="form-label">State Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
@@ -44,7 +40,7 @@
                                 @endif
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            <span ><a href="{{route('country.index')}} ">back</a></span>
+                            <span ><a href="{{route('state.index')}} ">back</a></span>
                           </form> 
                     </div>
                 </div>

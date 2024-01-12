@@ -1,6 +1,5 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Country</h1>
@@ -10,8 +9,7 @@
             <li class="breadcrumb-item active">Edit-Country</li>
           </ol>
         </nav>
-      </div><!-- End Page Title -->
-
+      </div>
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -23,7 +21,6 @@
                         <form action="{{route('country.update')}}" method="POST">
                             @csrf
                             <input type="hidden" class="form-control" id="country_id" name="country_id" value="{{$country_id->id}}">
-
                             <div class="mb-3">
                                 <label for="exampleInputname" class="form-label">Country Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{$country_id->name}}">

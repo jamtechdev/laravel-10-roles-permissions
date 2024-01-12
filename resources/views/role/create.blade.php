@@ -1,8 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Role</h1>
         <nav>
@@ -11,8 +9,7 @@
                 <li class="breadcrumb-item active">Add-Role</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-10">
@@ -41,16 +38,13 @@
                                     name="name" 
                                     placeholder="Name" >
                             </div>
-            
                             <label for="permissions" class="form-label"><h1 class="card-title">Assign Permissions</h1></label>
-            
                             <table class="table">
                                 <thead>
                                     <th scope="col" width="1%"><input type="checkbox" id="all_permission" name="all_permission"></th>
                                     <th scope="col" width="20%">Name</th>
                                     <th scope="col" width="1%">Guard</th> 
                                 </thead>
-            
                                 @foreach($permissions as $permission)
                                     <tr>
                                         <td>
@@ -64,7 +58,6 @@
                                     </tr>
                                 @endforeach
                             </table>
-            
                             <button type="submit" class="btn btn-primary">Save user</button>
                             <a href="{{route('roles.index')}}" class="btn btn-default">Back</a>
                         </form>
@@ -73,9 +66,6 @@
             </div>
         </div>
     </div>
-
-
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
@@ -100,7 +90,6 @@
         });
     </script>
 </main><!-- End #main -->
-
 @endsection('content');  
 
 

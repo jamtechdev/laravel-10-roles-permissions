@@ -24,40 +24,34 @@ class CountryController extends Controller
             'name' => 'required',
             
         ]);
-
         $country = new Country();
         $country->name = $request->name;
         $country->save();
-
         return redirect()->route('country.index')->with('message','Add Country Successfully');
     }
 
     public function edit($id)
-    {
+    {   
+
         $country_id =  Country::find($id);
         return view('country.edit', compact('country_id'));
     }
 
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            
+        ]);
         $update = Country::find($request->country_id);
         $update->name = $request->name;
         $update->save();
-
         return redirect()->route('country.index')->with('message','Update Country Successfully');
-
     }
-
     public function destroy($id)
     {
         $country_id = Country::find($id);
         $country_id->delete();
-
         return redirect()->route('country.index')->with('message','Delete Country Successfully');
-
     }
-
-    
-
-
 }

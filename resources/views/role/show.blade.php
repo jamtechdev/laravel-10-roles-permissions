@@ -1,8 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Role</h1>
         <nav>
@@ -11,8 +9,7 @@
                 <li class="breadcrumb-item active">Show-Role</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row ">
             <div class="col-md-10">
@@ -55,6 +52,5 @@
             </div>
         </div>
     </div>
-</main><!-- End #main -->
-
+</main>
 @endsection('content');  

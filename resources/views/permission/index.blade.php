@@ -1,8 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
 <main id="main" class="main">
-    
     <div class="pagetitle">
         <h1>Permission</h1>
         <nav>
@@ -11,8 +9,7 @@
                 <li class="breadcrumb-item active">Permission-List</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
@@ -36,7 +33,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                             <tr>
                                 <th scope="col" >#</th>
@@ -63,7 +60,6 @@
                                             @if (in_array("permissions.destroy", $permissionNames))
                                             <a href="{{ route('permissions.destroy', $permission->id) }}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</a>
                                             @endif
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -75,7 +71,12 @@
         </div>
     </div>
   </main><!-- End #main -->
-
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+  </script>
 @endsection('content');  
 
 

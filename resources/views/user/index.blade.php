@@ -1,9 +1,6 @@
 @extends('layouts.app');
 @section('content');
-
-
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>User</h1>
         <nav>
@@ -12,8 +9,7 @@
             <li class="breadcrumb-item active">User-List</li>
           </ol>
         </nav>
-    </div><!-- End Page Title -->
-
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,20 +21,19 @@
                     @endif
                 </div>
                 <div class="card">
-                    
                     <div class="card-header">
                         <h1 class="card-title">User List</h1>
                         <div class="card-div">
                             @php
                                 $permissionNames = Auth::user()->getPermissionsViaRoles()->pluck('name')->toArray();
                             @endphp
-                                @if (in_array("users.create", $permissionNames))
-                                    <a href="{{route('users.create')}}" class="btn btn-primary">Add User</a>
-                                @endif
+                            @if (in_array("users.create", $permissionNames))
+                                <a href="{{route('users.create')}}" class="btn btn-primary">Add User</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table" id="myTable">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>
@@ -48,7 +43,6 @@
                                 @if (in_array("users.edit", $permissionNames) || in_array("users.destroy", $permissionNames))
                                  <th scope="col">Action</th>
                                 @endif
-                              
                               </tr>
                             </thead>
                             @foreach($users as $key => $user)
@@ -79,4 +73,10 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+  </script>
 @endsection('content')
