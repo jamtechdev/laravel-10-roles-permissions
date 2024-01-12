@@ -45,7 +45,7 @@
                                 @endif
                               </tr>
                             </thead>
-                            @foreach($users as $key => $user)
+                            {{-- @foreach($users as $key => $user)
                             <tbody>
                                     <tr>
                                         <td>{{ $key+1 }}</td>
@@ -65,7 +65,7 @@
                                         </td> 
                                     </tr>
                             </tbody>
-                            @endforeach
+                            @endforeach --}}
                           </table>
                     </div>
                 </div>
@@ -75,8 +75,23 @@
 </main>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
-  </script>
+  $(function () {
+    var table = $('#myTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('users.index') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'username', name: 'username'},
+            {data: 'email', name: 'email'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+    
+  });
+
+
+  
+</script>
 @endsection('content')

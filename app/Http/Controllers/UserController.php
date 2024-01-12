@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
+
 
 class UserController extends Controller
 {
@@ -20,22 +22,43 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login.show');
     }
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        if ($user->hasRole('superadmin')) 
+        if ($request->ajax()) 
         {
-            $users = User::whereDoesntHave('roles', function ($query) {
-                $query->where('name', 'superadmin');
-            })->get();
-        } 
-        else 
-        {
-            $users = User::whereDoesntHave('roles', function ($query) {
-                $query->whereIn('name', ['superadmin', 'admin']);
-            })->whereNotIn('id', [$user->id])->get();
+            $user = Auth::user();
+            if ($user->hasRole('superadmin')) 
+            {
+                $users = User::whereDoesntHave('roles', function ($query) {
+                    $query->where('name', 'superadmin');
+                })->get();
+            } 
+            else 
+            {
+                $users = User::whereDoesntHave('roles', function ($query) {
+                    $query->whereIn('name', ['superadmin', 'admin']);
+                })->whereNotIn('id', [$user->id])->get();
+            }
+            return Datatables()::of($users)
+            ->addIndexColumn()
+            ->addColumn('action', function($row)
+            {
+                $edit = $delete = "";
+                $permissionNames = Auth::user()->getPermissionsViaRoles()->pluck('name')->toArray();
+                if (in_array("users.edit", $permissionNames))
+                {
+                    $edit =   "<a href='" .route('users.edit', $row->id). "' class='btn btn-info '>Edit</a>"; 
+                }
+                if(in_array("users.destroy", $permissionNames))
+                {
+                    $delete =  "<a href='" .route('users.destroy', $row->id). "'  class='btn btn-danger '>delete</a>";
+                }
+                return $edit.$delete;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
         }
-        return view('user.index', compact('users'));
+        return view('user.index');        
     }
 
     public function create()
@@ -70,13 +93,13 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'role' => 'required',
-        ]);
+        // $request->validate([
+        //     'name' => 'required',
+        //     'username' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required',
+        // ]);
+        $roleid = $request->role;
 
         $userid = $request->user_id;
         $userdata = User::find($userid);
@@ -84,10 +107,12 @@ class UserController extends Controller
         $userdata->username = $request->username;
         $userdata->email = $request->email;
         $userdata->save();
-        $roleid = $request->role;
-        if($roleid){
+        if($roleid)
+        {
             $userdata->roles()->sync($roleid);
+
         }
+        
         return redirect()->route('users.index')->with('message','Update User Successfully');
     }
 
