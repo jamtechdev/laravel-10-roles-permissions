@@ -9,7 +9,8 @@ class RoleController extends Controller
 {
     public function index(Request $request)
     {
-        $roles =  Role::where('name', '!=', 'superadmin')->get();
+        // $roles =  Role::where('name', '!=', 'superadmin')->get();
+        $roles =  Role::all();
 
         return view('role.index',compact('roles'));
     }
