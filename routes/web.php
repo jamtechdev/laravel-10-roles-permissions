@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\StateController;
@@ -90,6 +91,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::post('update',[CityController::class,'update'])->name('city.update');
             Route::get('destroy/{id}',[CityController::class,'destroy'])->name('city.destroy');
             Route::get('fetchstates',[CityController::class,'fetchstates'])->name('city.fetchstates');
+        });
+
+        Route::group(['prefix' => 'category'], function() {
+            Route::get('index',[CategoryController::class,'index'])->name('category.index');
+            Route::get('create',[CategoryController::class,'create'])->name('category.create');
+            Route::post('store',[CategoryController::class,'store'])->name('category.store');
+            Route::get('edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+            Route::post('update',[CategoryController::class,'update'])->name('category.update');
+            Route::get('destroy/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
         });
     });
 });

@@ -25,14 +25,27 @@
           </a>
       </li>
       @endif
-      @if (in_array("users.index", $permissionNames))
+
+      @if (in_array("category.index", $permissionNames))
       <li class="nav-item">
-          <a class="nav-link collapsed" href="{{ route('users.index') }}">
+          <a class="nav-link collapsed" href="{{ route('category.index') }}">
               <i class="bi bi-list"></i>
-              <span>Users</span>
+              <span>Category</span>
           </a>
       </li>
      @endif
+
+     @if (in_array("users.index", $permissionNames))
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="{{ route('users.index') }}">
+             <i class="bi bi-list"></i>
+             <span>Users</span>
+         </a>
+     </li>
+    @endif
+
+
+
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#location" data-bs-toggle="collapse" href="#">
         <i class="bi bi-geo-alt"></i><span>Locations</span><i class="bi bi-chevron-down ms-auto"></i>
